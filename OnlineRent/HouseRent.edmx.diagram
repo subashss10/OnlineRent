@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="889e94aee58c436eb25862c262b360ab" Name="Diagram1">
+        <EntityTypeShape EntityType="HouseRentModel.Post" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HouseRentModel.User" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HouseRentModel.UserType" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="HouseRentModel.FK__Posts__CreatedBy__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="HouseRentModel.FK__users__UserRoleI__0519C6AF" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HouseRentModel.Status" Width="1.5" PointX="6" PointY="7.875" />
+        <EntityTypeShape EntityType="HouseRentModel.UserPost" Width="1.5" PointX="8.25" PointY="2.125" />
+        <AssociationConnector Association="HouseRentModel.FK__UserPosts__PostS__276EDEB3" />
+        <AssociationConnector Association="HouseRentModel.FK__UserPosts__Creat__29572725" />
+        <AssociationConnector Association="HouseRentModel.FK__UserPosts__Reque__286302EC" />
+        <AssociationConnector Association="HouseRentModel.FK__UserPosts__Updat__2A4B4B5E" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

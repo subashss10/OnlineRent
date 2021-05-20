@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HouseRentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HouseName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Floor" Type="int" Nullable="false" />
+          <Property Name="Bedroom" Type="int" Nullable="false" />
+          <Property Name="Kitchen" Type="bit" Nullable="false" />
+          <Property Name="Dining" Type="bit" Nullable="false" />
+          <Property Name="Family" Type="nvarchar(max)" />
+          <Property Name="Bachelor" Type="nvarchar(max)" />
+          <Property Name="Office" Type="nvarchar(max)" />
+          <Property Name="Approval" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Rent" Type="int" Nullable="false" />
+          <Property Name="Additional" Type="nvarchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="isDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusDescription" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPosts">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="RequestedUserId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="RequestedUserId" Type="int" Nullable="false" />
+          <Property Name="PostStatus" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserRoleId" Type="int" Nullable="false" />
+          <Property Name="Images" Type="varbinary(max)" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRole" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Posts__CreatedBy__1ED998B2">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__Creat__29572725">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserPosts" Type="Self.UserPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPosts">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__PostS__276EDEB3">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="UserPosts" Type="Self.UserPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="UserPosts">
+              <PropertyRef Name="PostStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__Reque__286302EC">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserPosts" Type="Self.UserPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPosts">
+              <PropertyRef Name="RequestedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__Updat__2A4B4B5E">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserPosts" Type="Self.UserPosts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPosts">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__users__UserRoleI__0519C6AF">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="RegistrationInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="UserRoleId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HouseRentModelStoreContainer">
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPosts" EntityType="Self.UserPosts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Posts__CreatedBy__1ED998B2" Association="Self.FK__Posts__CreatedBy__1ED998B2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__Creat__29572725" Association="Self.FK__UserPosts__Creat__29572725">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPosts" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__PostS__276EDEB3" Association="Self.FK__UserPosts__PostS__276EDEB3">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="UserPosts" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__Reque__286302EC" Association="Self.FK__UserPosts__Reque__286302EC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPosts" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__Updat__2A4B4B5E" Association="Self.FK__UserPosts__Updat__2A4B4B5E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPosts" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__users__UserRoleI__0519C6AF" Association="Self.FK__users__UserRoleI__0519C6AF">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HouseRentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HouseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Floor" Type="Int32" Nullable="false" />
+          <Property Name="Bedroom" Type="Int32" Nullable="false" />
+          <Property Name="Kitchen" Type="Boolean" Nullable="false" />
+          <Property Name="Dining" Type="Boolean" Nullable="false" />
+          <Property Name="Family" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bachelor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Office" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Approval" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Rent" Type="Int32" Nullable="false" />
+          <Property Name="Additional" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Posts__CreatedBy__1ED998B2" FromRole="Posts" ToRole="Users" />
+          <Property Name="isDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" />
+          <Property Name="Images" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__CreatedBy__1ED998B2" FromRole="Users" ToRole="Posts" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK__users__UserRoleI__0519C6AF" FromRole="Users" ToRole="UserType" />
+          <NavigationProperty Name="UserPosts" Relationship="HouseRentModel.FK__UserPosts__Creat__29572725" FromRole="User" ToRole="UserPost" />
+          <NavigationProperty Name="UserPosts1" Relationship="HouseRentModel.FK__UserPosts__Reque__286302EC" FromRole="User" ToRole="UserPost" />
+          <NavigationProperty Name="UserPosts2" Relationship="HouseRentModel.FK__UserPosts__Updat__2A4B4B5E" FromRole="User" ToRole="UserPost" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRole" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__users__UserRoleI__0519C6AF" FromRole="UserType" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Posts__CreatedBy__1ED998B2">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__users__UserRoleI__0519C6AF">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HouseRentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <AssociationSet Name="FK__Posts__CreatedBy__1ED998B2" Association="Self.FK__Posts__CreatedBy__1ED998B2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__users__UserRoleI__0519C6AF" Association="Self.FK__users__UserRoleI__0519C6AF">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="RegistrationInsert">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="UserRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Status" EntityType="HouseRentModel.Status" />
+          <EntitySet Name="UserPosts" EntityType="HouseRentModel.UserPost" />
+          <AssociationSet Name="FK__UserPosts__PostS__276EDEB3" Association="HouseRentModel.FK__UserPosts__PostS__276EDEB3">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="UserPost" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__Creat__29572725" Association="HouseRentModel.FK__UserPosts__Creat__29572725">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPost" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__Reque__286302EC" Association="HouseRentModel.FK__UserPosts__Reque__286302EC">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPost" EntitySet="UserPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPosts__Updat__2A4B4B5E" Association="HouseRentModel.FK__UserPosts__Updat__2A4B4B5E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPost" EntitySet="UserPosts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserPosts" Relationship="HouseRentModel.FK__UserPosts__PostS__276EDEB3" FromRole="Status" ToRole="UserPost" />
+        </EntityType>
+        <EntityType Name="UserPost">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="RequestedUserId" />
+          </Key>
+          <Property Name="PostId" Type="Int32" Nullable="false" />
+          <Property Name="RequestedUserId" Type="Int32" Nullable="false" />
+          <Property Name="PostStatus" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="HouseRentModel.FK__UserPosts__PostS__276EDEB3" FromRole="UserPost" ToRole="Status" />
+          <NavigationProperty Name="User" Relationship="HouseRentModel.FK__UserPosts__Creat__29572725" FromRole="UserPost" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="HouseRentModel.FK__UserPosts__Reque__286302EC" FromRole="UserPost" ToRole="User" />
+          <NavigationProperty Name="User2" Relationship="HouseRentModel.FK__UserPosts__Updat__2A4B4B5E" FromRole="UserPost" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__UserPosts__PostS__276EDEB3">
+          <End Type="HouseRentModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="HouseRentModel.UserPost" Role="UserPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="UserPost">
+              <PropertyRef Name="PostStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__Creat__29572725">
+          <End Type="HouseRentModel.User" Role="User" Multiplicity="1" />
+          <End Type="HouseRentModel.UserPost" Role="UserPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPost">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__Reque__286302EC">
+          <End Type="HouseRentModel.User" Role="User" Multiplicity="1" />
+          <End Type="HouseRentModel.UserPost" Role="UserPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPost">
+              <PropertyRef Name="RequestedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPosts__Updat__2A4B4B5E">
+          <End Type="HouseRentModel.User" Role="User" Multiplicity="1" />
+          <End Type="HouseRentModel.UserPost" Role="UserPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPost">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HouseRentModelStoreContainer" CdmEntityContainer="HouseRentEntities">
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="HouseRentModel.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
+                <ScalarProperty Name="Kitchen" ColumnName="Kitchen" />
+                <ScalarProperty Name="Dining" ColumnName="Dining" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Bachelor" ColumnName="Bachelor" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="Additional" ColumnName="Additional" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HouseRentModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="HouseRentModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RegistrationInsert" FunctionName="HouseRentModel.Store.RegistrationInsert" />
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="HouseRentModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPosts">
+            <EntityTypeMapping TypeName="HouseRentModel.UserPost">
+              <MappingFragment StoreEntitySet="UserPosts">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PostStatus" ColumnName="PostStatus" />
+                <ScalarProperty Name="RequestedUserId" ColumnName="RequestedUserId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
