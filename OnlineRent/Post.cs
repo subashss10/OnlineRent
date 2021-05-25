@@ -25,9 +25,7 @@ namespace OnlineRent
         public string Family { get; set; }
         public string Bachelor { get; set; }
         public string Office { get; set; }
-        public Nullable<int> Approval { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public Nullable<System.DateTime> ApprovedDate { get; set; }
         public int CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public int Rent { get; set; }

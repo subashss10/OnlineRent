@@ -28,10 +28,10 @@ namespace OnlineRent
         }
     
         public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<UserPost> UserPosts { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserType> UserTypes { get; set; }
     
         public virtual int RegistrationInsert(string firstName, string lastName, string email, string phoneNumber, string password, Nullable<int> userRoleId)
         {

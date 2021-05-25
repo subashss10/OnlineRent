@@ -26,8 +26,10 @@ namespace OnlineRent
             }
             else
             {
-                if(usertype.Text=="Customer")
+                Session["email"] = email.Text;
+                if (usertype.Text=="Customer")
                 {
+                    
                     Response.Redirect("CustomerPage.aspx");
                 }
                 else

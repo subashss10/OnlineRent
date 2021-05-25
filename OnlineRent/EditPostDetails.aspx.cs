@@ -148,9 +148,9 @@ namespace OnlineRent
                 {
                     post.Office = "No";
                 }
-                post.Approval = 0;
+                
                 post.CreatedDate = DateTime.Now;
-                post.ApprovedDate = null;
+                
                 post.CreatedBy = emailCheck.id;
                 post.UpdatedDate = null;
                 post.Rent = Convert.ToInt32(txtRent.Text);
